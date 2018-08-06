@@ -20,8 +20,8 @@ $('#draw-button').click(function() {
     hand.length = 0;
 
     // Get five cards for the hand.
-    for(i = 1; i <= 5; i++) {
-      card = deck[curCard];
+    for(let i = 1; i <= 5; i++) {
+      let card = deck[curCard];
       let cardName = getCardImageName(card.rank, card.suit);
       let imgName = "#card-" + i;
       $(imgName).attr('src','img/' + cardName);
@@ -40,10 +40,10 @@ $('#draw-button').click(function() {
     
   } else if($('#draw-button').text() === 'DRAW') {
     // If the text is not 'DEAL' then it's 'DRAW'
-    for(i = 1; i <= 5; i++) {
+    for(let i = 1; i <= 5; i++) {
       // If the card is not held, get put the next card here.
       if( !($('#hold-' + i.toString()).hasClass('held')) ) {
-        card = deck[curCard];
+        let card = deck[curCard];
         let cardName = getCardImageName(card.rank, card.suit);
         let imgName = "#card-" + i;
         $(imgName).attr('src','img/' + cardName);
@@ -56,7 +56,7 @@ $('#draw-button').click(function() {
     }
 
     $('#draw-button').text('DEAL');
-    winnings = checkForWin();
+    let winnings = checkForWin();
     credits += winnings;
     $('#num-credits').text(credits.toString());
     shuffleDeck();    
@@ -93,12 +93,9 @@ $('#decBet').click(function() {
 
 // Initialize the deck of cards for play.
 function initDeck() {
-  if(deck.length > 0) {
-    while(deck.length) {
-      deck.pop();
-    }
-  }
-
+  // Clear out the deck if it exists.
+  deck.length = 0;
+  
   for(let suit = 0; suit < 4; suit++) {
     for(let rank = 0; rank < 13; rank++) {
       var card = {'rank': rank, 'suit': suit};
@@ -201,7 +198,7 @@ function findMatching() {
       if(i === 0) // Aces!
         return curBet * 50;
       else // 2 to King
-        return curbet * 25;
+        return curBet * 25;
     }
 
     if(cardCount[i] == 3) {
