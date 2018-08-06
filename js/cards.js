@@ -4,6 +4,7 @@ const maxBet = 5; // Maximum number of credits you can bet at once.
 var curBet = 1; // The curren number of credits. Starts at one.
 var credits = 1000; // You start with 1000 credits. This may change.
 var curCard = 0; // Pointer to the current card in the deck.
+var holdEnabled = false;
 
 var deck = [];
 var hand = [];
@@ -35,7 +36,7 @@ $('#draw-button').click(function() {
 
     // Change the button caption to 'DRAW'
     $('#draw-button').text('DRAW');
-
+    holdEnabled = true;
     // TODO: Now enable the hold buttons.
     
   } else if($('#draw-button').text() === 'DRAW') {
@@ -59,17 +60,25 @@ $('#draw-button').click(function() {
     let winnings = checkForWin();
     credits += winnings;
     $('#num-credits').text(credits.toString());
-    shuffleDeck();    
+    shuffleDeck();
+    holdEnabled = false;    
   }
 });
 
 $('.hold').click(function() {
-  $(this).toggleClass('held');
+  if(holdEnabled) {
+    $(this).toggleClass('held');
+  }
 });
 
 $('.card').click(function() {
-  // toggle the 'held' class on the hold
-  // with the same ending number.
+  if(holdEnabled) {
+    // toggle the 'held' class on the hold
+    // with the same ending number.
+    let cardId = $(this).attr('id');
+    let num = cardId[cardId.length - 1];
+    $('#hold-' + num).toggleClass('held');
+  }
 });
 
 $('#bet-max').click(function() {
