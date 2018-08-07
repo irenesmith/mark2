@@ -1,10 +1,14 @@
+/* Game Values */
 const maxBet = 5; // Maximum number of credits you can bet at once.
 var curBet = 1; // The curren number of credits. Starts at one.
 var credits = 1000; // You start with 1000 credits. This may change.
-var holdEnabled = false;
 
+/* Card variables */
 var deck;
 var hand = [];
+
+/* UI Elements Values */
+var holdEnabled = false;
 
 $(document).ready(function() {
   deck = new Deck();
@@ -12,65 +16,59 @@ $(document).ready(function() {
   $('#num-credits').text(credits.toString());
 });
 
+/* Player Interactions */
 $('#draw-button').click(function() {
   if($('#draw-button').text() === 'DEAL') {
-    // Clear the hand.
-    hand.length = 0;
 
-    // Get five cards for the hand.
-    for(let i = 1; i <= 5; i++) {
-      let card = deck.Next();
-      if(card === null) {
-        console.log("shuffling Deck...");
-        deck.Shuffle();
-        card = deck.Next();
-      }
-      let imgId = "#card-" + i;
-      $(imgId).attr('src', card.GetImageName());
-      hand.push(card);
-    }
+    dealCards();
 
     // Subtract the credits from the player
     credits -= curBet;
+
+    // Update the credits display
     $('#num-credits').text(credits.toString());
 
     // Change the button caption to 'DRAW'
     $('#draw-button').text('DRAW');
     holdEnabled = true;
-    // TODO: Now enable the hold buttons.
     
   } else if($('#draw-button').text() === 'DRAW') {
     // If the text is not 'DEAL' then it's 'DRAW'
-    for(let i = 1; i <= 5; i++) {
-      // If the card is not held, get put the next card here.
-      if( !($('#hold-' + i.toString()).hasClass('held')) ) {
-        let card = deck.Next();
-        if(card === null) {
-          console.log("Shuffling Deck");
-          deck.Shuffle();
-          card = deck.Next();
-        }
-        let imgId = "#card-" + i;
-        $(imgId).attr('src', card.GetImageName());
-        hand[i-1] = card;
-      } else {
-        // remove the held status
-        $('#hold-' + i).removeClass('held');
-      }
-    }
+
+    drawCards();
 
     $('#draw-button').text('DEAL');
+
+    // See if the player won anything.
     let winnings = checkForWin();
     credits += winnings;
+
+    // Update the credits display
     $('#num-credits').text(credits.toString());
+
+    // Poker Machines shuffle constantly when
+    // the player isn't actually drawing or
+    // dealing the cards. Not quite sure how
+    // to do that yet, so I just shuffle at the
+    // end of each hand.
     deck.Shuffle();
+
+    // You can't hold a card if the hand hasn't
+    // Started yet.
     holdEnabled = false;    
   }
 });
 
+/* ---------------------------------------- */
+/* Routines to toggle hold on a card. The   */
+/* player can either click on the card or   */
+/* the word hold beneath the card to hold   */
+/* it before drawing the cards from the     */
+/* deck. If held, it will not be replaces.  */
+/* ---------------------------------------- */
 $('.hold').click(function() {
   if(holdEnabled) {
-    $(this).toggleClass('held');
+    toggleHold(getIdNum($(this).attr('id')));
   }
 });
 
@@ -78,12 +76,14 @@ $('.card').click(function() {
   if(holdEnabled) {
     // toggle the 'held' class on the hold
     // with the same ending number.
-    let cardId = $(this).attr('id');
-    let num = cardId[cardId.length - 1];
-    $('#hold-' + num).toggleClass('held');
+    toggleHold(getIdNum($(this).attr('id')));
   }
 });
 
+/* ---------------------------------------- */
+/* The following routines set the number of */
+/* credits bet for the hand.                */
+/* ---------------------------------------- */
 $('#bet-max').click(function() {
   curBet = maxBet;
   $('#curBet').text(curBet.toString());
@@ -103,12 +103,72 @@ $('#decBet').click(function() {
   }
 });
 
-// Checks the hand for winning combinations.
-// Need to find a way to return a message as
-// well to tell the play what cause the win!
+/* ---------------------------------------- */
+/* Deals a fresh hand. Replaces all of the  */
+/* cards currently in the hand with new     */
+/* cards.                                   */
+/* ---------------------------------------- */
+function dealCards() {
+    // Clear the hand. If we're dealing,
+    // we're starting fresh.
+    hand.length = 0;
+
+    // Get five new cards for the hand.
+    for(let i = 1; i <= 5; i++) {
+      let card = deck.Next();
+      hand.push(card);
+      showCard("#card-" + i, card.GetImageName());
+    }
+}
+
+function drawCards() {
+  for(let i = 1; i <= 5; i++) {
+    // If the card is not held, get put the next card here.
+    if( !($('#hold-' + i.toString()).hasClass('held')) ) {
+      let card = deck.Next();
+      showCard("#card-" + i, card.GetImageName());
+      hand[i-1] = card;
+    } else {
+      clearHold(i);
+    }
+  }
+}
+
+function showCard(cardId, cardImage) {
+  $(cardId).attr('src', cardImage);
+}
+
+// Extract the number (which identifies the
+// position of the card) in order to change
+// image, or mark a card as held or not helt.
+function getIdNum(id) {
+  return id[id.length - 1];
+}
+
+function toggleHold(num) {
+  $('#hold-' + num).toggleClass('held');
+}
+
+function clearHold(num) {
+  // remove the held status on a particular card
+  $('#hold-' + num).removeClass('held');
+}
+
+/* ------------------------------------------ */
+/* The code below this point checks the hand  */
+/* to see if the player wont. It might be     */
+/* better if this code moved into the other   */
+/* folder with Card and Deck?                 */
+/* ------------------------------------------ */
+
 function checkForWin() {
-  // Check for a win.
-  // First set all win types to false!
+/* ------------------------------------------ */
+/* Checks the hand for winning combinations.  */
+/* Need to find a way to return a message as  */
+/* well to tell the play what cause the win!  */
+/* ------------------------------------------ */
+
+// First set all win types to false!
   let isRoyalStraight = false;
   let isStraight = false;
   let isFlush = false;
@@ -120,6 +180,9 @@ function checkForWin() {
   if(hand[0].rank == 1 && hand[1].rank == 9 && hand[2].rank == 10 && hand[3].rank == 11 && hand[4].rank == 12) {
     // Yes, it's a Royal Straight
     isRoyalStraight = true;
+    // If this isn't also a flush, we need to pay off
+    // for a straight.
+    isStraight = true;
   } else if((hand[1].rank == (hand[0].rank + 1)) &&
       (hand[2].rank == (hand[1].rank + 1)) &&
       (hand[3].rank == (hand[2].rank + 1)) &&
