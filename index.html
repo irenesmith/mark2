@@ -10,8 +10,111 @@
 </head>
 <body>
     <main>
-        <h1>Video Poker</h1>
-        <img id="pay-table" src="img/poker_bkg.png">
+        <header>
+            <h1>Deuces Wild</h1>
+            <h2>Video Poker</h2>
+        </header>
+        <section id="pay-table">
+            <table>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>1 coin</th>
+                    <th>2 coins</th>
+                    <th>3 coins</th>
+                    <th>4 coins</th>
+                    <th>5 coins</th>
+                </tr>
+                <tr>
+                    <td>Royal Flush</td>
+                    <td>500</td>
+                    <td>1,000</td>
+                    <td>1,500</td>
+                    <td>2,000</td>
+                    <td>2,500</td>
+                </tr>
+                <tr>
+                    <td>Five of a Kind</td>
+                    <td>200</td>
+                    <td>400</td>
+                    <td>600</td>
+                    <td>800</td>
+                    <td>1,000</td>
+                </tr>
+                <tr>
+                    <td>Wild Royal Flush</td>
+                    <td>100</td>
+                    <td>200</td>
+                    <td>300</td>
+                    <td>400</td>
+                    <td>500</td>
+                </tr>
+                <tr>
+                    <td>Four Aces</td>
+                    <td>50</td>
+                    <td>100</td>
+                    <td>150</td>
+                    <td>200</td>
+                    <td>250</td>
+                </tr>
+                <tr>
+                    <td>Straight Flush</td>
+                    <td>40</td>
+                    <td>80</td>
+                    <td>120</td>
+                    <td>160</td>
+                    <td>200</td>
+                </tr>
+                <tr>
+                    <td>Four 3s to Kings</td>
+                    <td>25</td>
+                    <td>50</td>
+                    <td>75</td>
+                    <td>100</td>
+                    <td>125</td>
+                </tr>
+                <tr>
+                    <td>Full House</td>
+                    <td>8</td>
+                    <td>16</td>
+                    <td>24</td>
+                    <td>32</td>
+                    <td>40</td>
+                </tr>
+                <tr>
+                    <td>Flush</td>
+                    <td>5</td>
+                    <td>10</td>
+                    <td>15</td>
+                    <td>20</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>Straight</td>
+                    <td>3</td>
+                    <td>6</td>
+                    <td>9</td>
+                    <td>12</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>Three of a Kind</td>
+                    <td>2</td>
+                    <td>4</td>
+                    <td>6</td>
+                    <td>8</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>Two Pair</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                </tr>
+            </table>
+        </section>
+
         <div class="cards">
             <div>
                 <img class="card" id="card-1" src="img/cardback_blue2.png" alt="">
@@ -64,5 +167,6 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="js/cards.js"></script>
+    <script src="js/poker.js"></script>
 </body>
 </html>

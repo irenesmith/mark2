@@ -22,8 +22,32 @@ body {
     display:block;
     width:1024px;
     margin:0 auto;
+    color:white;
+    font-size:2rem;
 }
 
+#pay-table table {
+    width:100%;
+    padding:2rem;
+    border-collapse: collapse;
+}
+
+#pay-table table tr th {
+    text-transform: uppercase;
+    border:1px solid #eee;
+    padding:0.5rem;
+}
+
+#pay-table table tr td {
+    text-align:right;
+    border:1px solid #eee;
+    padding:0.5rem;
+}
+
+#pay-table table tr.you-won {
+    font-size:2.5rem;
+    background-color:greenyellow;
+}
 .card {
     width:140;
     height:190;
@@ -108,6 +132,12 @@ body {
 h1 {
     text-align:center;
     font-size:4rem;
+    color:palegoldenrod;
+}
+
+h2 {
+    text-align:center;
+    font-size:2rem;
     color:palegoldenrod;
 }
 
