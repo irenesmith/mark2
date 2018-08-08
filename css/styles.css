@@ -34,8 +34,8 @@ h2 {
 /* Payout display */
 #pay-table {
     display:block;
-    width:1024px;
-    margin:0 auto;
+    width:100rem;
+    margin:1rem auto;
     color:white;
     font-size:2rem;
 }
@@ -49,6 +49,7 @@ h2 {
 #pay-table table tr th {
     text-transform: uppercase;
     border:1px solid #eee;
+    text-align:right;
     padding:0.5rem;
 }
 
@@ -61,12 +62,15 @@ h2 {
 #pay-table table tr.you-won {
     font-size:2.5rem;
     background-color:greenyellow;
+    color:black;
 }
 
 /* Playing Cards */
 .card {
-    width:140;
-    height:190;
+    width:140px;
+    height:190px;
+    background-image:url(/img/cardBack_blue3.png);
+    background-repeat:no-repeat;
 }
 
 .cards {
@@ -99,6 +103,34 @@ h2 {
 }
 
 #card-5 {
+    grid-column:5;
+    grid-row:1;
+}
+
+.card-held {
+    display:none;
+    width:140;
+    height:190;
+}
+
+#card-held-1 {
+    grid-column:1;
+    grid-row:1;
+}
+
+#card-held-2 {
+    grid-column:2;
+    grid-row:1;
+}
+#card-held-3 {
+    grid-column:3;
+    grid-row:1;
+}
+#card-held-4 {
+    grid-column:4;
+    grid-row:1;
+}
+#card-held-5 {
     grid-column:5;
     grid-row:1;
 }
@@ -170,10 +202,10 @@ h2 {
 #num-credits {
     font-size:2rem;
     padding:1rem;
-    border:1px solid white;
-    background-color:white;
+/*    border:1px solid white;
+    background-color:white; */
     color:green;
-    grid-column:2;
+    text-align:right;
 }
 
 /* Number of coins bet */

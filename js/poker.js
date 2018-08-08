@@ -135,7 +135,7 @@ function drawCards() {
 }
 
 function showCard(cardId, cardImage) {
-  $(cardId).attr('src', cardImage);
+  $(cardId).css('background-image', "url(" + cardImage + ")");
 }
 
 // Extract the number (which identifies the
@@ -147,11 +147,13 @@ function getIdNum(id) {
 
 function toggleHold(num) {
   $('#hold-' + num).toggleClass('held');
+  $('#card-held-' + num).toggle();
 }
 
 function clearHold(num) {
   // remove the held status on a particular card
   $('#hold-' + num).removeClass('held');
+  $('#card-held-' + num).hide();
 }
 
 /* ------------------------------------------ */
@@ -250,12 +252,14 @@ function findMatching() {
   }
 
   // Full House
-  if(isThreeKind && pairs === 1)
+  if(isThreeKind && pairs === 1) {
     return curBet * 8;
+  }
   
   // Three of a kind
-  if(isThreeKind)
+  if(isThreeKind) {
     return curBet * 2;
+  }
 
   // Two Pair
   if(pairs === 2) {
