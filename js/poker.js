@@ -235,6 +235,7 @@ function findMatching() {
   // Four of a kind
   for(let i = 0; i < 13; i++) {
     if(cardCount[i] == 4) {
+      ifFourKind = true;
       if(i === 0) // Aces!
         return curBet * 50;
       else // 2 to King
