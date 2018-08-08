@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Fredoka+One');
 
+/* General Styles */
 *,
 *::after,
 *::before {
@@ -18,10 +19,23 @@ body {
   background-color:black;
 }
 
+h1 {
+    text-align:center;
+    font-size:4rem;
+    color:palegoldenrod;
+}
+
+h2 {
+    text-align:center;
+    font-size:2rem;
+    color:palegoldenrod;
+}
+
+/* Payout display */
 #pay-table {
     display:block;
-    width:1024px;
-    margin:0 auto;
+    width:100rem;
+    margin:1rem auto;
     color:white;
     font-size:2rem;
 }
@@ -35,6 +49,7 @@ body {
 #pay-table table tr th {
     text-transform: uppercase;
     border:1px solid #eee;
+    text-align:right;
     padding:0.5rem;
 }
 
@@ -47,11 +62,15 @@ body {
 #pay-table table tr.you-won {
     font-size:2.5rem;
     background-color:greenyellow;
+    color:black;
 }
+
+/* Playing Cards */
 .card {
-    width:140;
-    height:190;
-    background-color:limegreen;
+    width:140px;
+    height:190px;
+    background-image:url(/img/cardBack_blue3.png);
+    background-repeat:no-repeat;
 }
 
 .cards {
@@ -88,6 +107,35 @@ body {
     grid-row:1;
 }
 
+.card-held {
+    display:none;
+    width:140;
+    height:190;
+}
+
+#card-held-1 {
+    grid-column:1;
+    grid-row:1;
+}
+
+#card-held-2 {
+    grid-column:2;
+    grid-row:1;
+}
+#card-held-3 {
+    grid-column:3;
+    grid-row:1;
+}
+#card-held-4 {
+    grid-column:4;
+    grid-row:1;
+}
+#card-held-5 {
+    grid-column:5;
+    grid-row:1;
+}
+
+/* Hold Buttons under cards */
 .hold {
     text-align:center;
     font-size:3rem;
@@ -129,18 +177,6 @@ body {
     grid-row:2;
 }
 
-h1 {
-    text-align:center;
-    font-size:4rem;
-    color:palegoldenrod;
-}
-
-h2 {
-    text-align:center;
-    font-size:2rem;
-    color:palegoldenrod;
-}
-
 .button {
     background-color:maroon;
     color:white;
@@ -166,18 +202,21 @@ h2 {
 #num-credits {
     font-size:2rem;
     padding:1rem;
-    border:1px solid white;
-    background-color:white;
+/*    border:1px solid white;
+    background-color:white; */
     color:green;
-    grid-column:2;
+    text-align:right;
 }
 
+/* Number of coins bet */
 #bet {
     font-size:2rem;
     padding:1rem;
     color:darkorange;
 }
 
+/* Make the increase and descrease
+   bet buttons look like buttons */
 #incBet:hover,
 #decBet:hover {
     color:white;
